@@ -1,0 +1,18 @@
+[
+  {
+    "username": "admin_tec",
+    "password": "123",
+    "role": "admin"
+  },
+  {
+    "username": "orientador_psic",
+    "password": "123",
+    "role": "orientador"
+  },
+  {
+    "username": "kenia_aide",
+    "password": "123",
+    "role": "estudiante",
+    "tasks": []
+  }
+]
