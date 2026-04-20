@@ -1,0 +1,91 @@
+{
+  "karime@universidad.edu": {
+    "password": "1234",
+    "name": "Karime",
+    "career": "Ing. en Gestion Empresarial",
+    "semester": 6,
+    "risk_level": "Medio",
+    "progress": 75,
+    "reminders": [
+      {
+        "icon": "📋",
+        "task": "Entregar reporte de quimica",
+        "date": "Manana"
+      },
+      {
+        "icon": "📐",
+        "task": "Examen de matematicas",
+        "date": "25 de abril"
+      }
+    ],
+    "recommendations": [
+      {
+        "icon": "📚",
+        "text": "Estudia al menos 1 hora al dia esta semana.",
+        "color": "#2563eb"
+      },
+      {
+        "icon": "🧘",
+        "text": "Practica ejercicios de respiracion y relajacion.",
+        "color": "#16a34a"
+      },
+      {
+        "icon": "🗓️",
+        "text": "Agenda una tutoria con un asesor.",
+        "color": "#d97706"
+      }
+    ]
+  },
+  "vallesteroskeniaaide@gmail.com": {
+    "password": "7895",
+    "name": "valllesteros",
+    "career": "informatica",
+    "semester": 2,
+    "risk_level": "Bajo",
+    "progress": 0,
+    "reminders": [],
+    "recommendations": [
+      {
+        "icon": "🎉",
+        "text": "Bienvenido/a a TraKU! Completa tu evaluacion inicial.",
+        "color": "#2563eb"
+      },
+      {
+        "icon": "📚",
+        "text": "Explora los recursos academicos disponibles.",
+        "color": "#16a34a"
+      },
+      {
+        "icon": "💬",
+        "text": "Habla con tu asistente IA cuando lo necesites.",
+        "color": "#d97706"
+      }
+    ]
+  },
+  "jualkle@gmail.com": {
+    "password": "4561",
+    "name": "juan",
+    "career": "industrial",
+    "semester": 3,
+    "risk_level": "Bajo",
+    "progress": 0,
+    "reminders": [],
+    "recommendations": [
+      {
+        "icon": "🎉",
+        "text": "Bienvenido/a a TraKU! Completa tu evaluacion inicial.",
+        "color": "#2563eb"
+      },
+      {
+        "icon": "📚",
+        "text": "Explora los recursos academicos disponibles.",
+        "color": "#16a34a"
+      },
+      {
+        "icon": "💬",
+        "text": "Habla con tu asistente IA cuando lo necesites.",
+        "color": "#d97706"
+      }
+    ]
+  }
+}
