@@ -1,3 +1,4 @@
+<<<<<<< HEAD
 *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
 
 :root {
@@ -401,4 +402,82 @@ body { font-family: var(--font); background: var(--gray-50); color: var(--gray-8
   color: rgba(255,255,255,0.9);
   text-align: center;
   line-height: 1.2;
+=======
+:root {
+    --primary: #004a99;
+    --secondary: #007bff;
+    --accent: #ffcc00;
+    --bg: #f4f7f6;
+    --dark: #333;
+    --white: #ffffff;
+}
+
+body {
+    font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+    background-color: var(--bg);
+    margin: 0;
+    color: var(--dark);
+}
+
+/* Navegación */
+.nav-bar {
+    background: var(--primary);
+    color: var(--white);
+    padding: 1rem 2rem;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    box-shadow: 0 2px 5px rgba(0,0,0,0.1);
+}
+
+.role-badge {
+    background: var(--accent);
+    color: black;
+    padding: 3px 10px;
+    border-radius: 20px;
+    font-size: 0.75rem;
+    font-weight: bold;
+    margin-left: 10px;
+}
+
+/* Contenedores */
+.dashboard-container {
+    max-width: 1000px;
+    margin: 30px auto;
+    padding: 20px;
+}
+
+section {
+    background: var(--white);
+    padding: 25px;
+    border-radius: 12px;
+    box-shadow: 0 4px 15px rgba(0,0,0,0.05);
+}
+
+/* Botones */
+button {
+    background: var(--secondary);
+    color: white;
+    border: none;
+    padding: 10px 20px;
+    border-radius: 6px;
+    cursor: pointer;
+    font-weight: 600;
+    transition: 0.3s;
+    margin: 5px;
+}
+
+button:hover {
+    background: var(--primary);
+    transform: translateY(-2px);
+}
+
+/* Calendario */
+#calendar {
+    margin-top: 25px;
+    padding: 15px;
+    border: 1px solid #ddd;
+    border-radius: 8px;
+    background: white;
+>>>>>>> b9ca4a6d531ec479d8a056fab5415979661c5d53
 }

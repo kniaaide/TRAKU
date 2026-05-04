@@ -1,3 +1,4 @@
+<<<<<<< HEAD
 {
   "karime@universidad.edu": {
     "password": "1234",
@@ -89,3 +90,23 @@
     ]
   }
 }
+=======
+[
+  {
+    "username": "admin_tec",
+    "password": "123",
+    "role": "admin"
+  },
+  {
+    "username": "orientador_psic",
+    "password": "123",
+    "role": "orientador"
+  },
+  {
+    "username": "kenia_aide",
+    "password": "123",
+    "role": "estudiante",
+    "tasks": []
+  }
+]
+>>>>>>> b9ca4a6d531ec479d8a056fab5415979661c5d53

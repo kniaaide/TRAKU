@@ -1,6 +1,7 @@
 <!DOCTYPE html>
 <html lang="es">
 <head>
+<<<<<<< HEAD
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 <title>TraKU – Asistente Inteligente Universitario</title>
@@ -371,5 +372,87 @@
 </div>
 
 <script src="/static/js/app.js"></script>
+=======
+    <meta charset="UTF-8">
+    <title>TRAKU - Sistema de Gestión</title>
+    <link rel="stylesheet" href="{{ url_for('static', filename='css/style.css') }}">
+    <link href='https://cdn.jsdelivr.net/npm/fullcalendar@5.11.3/main.min.css' rel='stylesheet' />
+    <script src='https://cdn.jsdelivr.net/npm/fullcalendar@5.11.3/main.min.js'></script>
+    <style>
+        .dashboard-container { padding: 20px; font-family: Arial, sans-serif; }
+        .nav-bar { background: #004a99; color: white; padding: 15px; display: flex; justify-content: space-between; }
+        .role-badge { background: #ffcc00; color: black; padding: 2px 8px; border-radius: 4px; font-size: 0.8em; }
+        #calendar { max-width: 900px; margin: 20px auto; background: white; padding: 10px; border-radius: 8px; }
+    </style>
+</head>
+<body>
+    <div class="nav-bar">
+        <div>
+            <strong>TRAKU</strong> | Bienvenido, {{ user }} 
+            <span class="role-badge">{{ role }}</span>
+        </div>
+        <a href="/logout" style="color: white; text-decoration: none;">Cerrar Sesión</a>
+    </div>
+
+    <div class="dashboard-container">
+        {% if role == 'admin' %}
+            <section>
+                <h2>Panel de Control Universitario</h2>
+                <p>Configuración global de la plataforma y reportes institucionales.</p>
+                <button>Gestionar Usuarios</button>
+                <button>Configurar Cuestionarios</button>
+            </section>
+
+        {% elif role == 'orientador' %}
+            <section>
+                <h2>Módulo de Orientación y Psicología</h2>
+                <div style="background: #e1f5fe; padding: 15px; border-radius: 5px;">
+                    <h3>Alertas Recientes</h3>
+                    <ul>
+                        <li>Estudiante A: Resultados de estrés moderado.</li>
+                        <li>Estudiante B: Requiere seguimiento preventivo.</li>
+                    </ul>
+                </div>
+            </section>
+
+        {% elif role == 'estudiante' %}
+            <section>
+                <h2>Mi Espacio Estudiantil</h2>
+                <button onclick="alert('Iniciando cuestionario...')">Realizar Cuestionario Semanal</button>
+                
+                <h3>Mi Agenda de Tareas</h3>
+                <div id='calendar'></div>
+            </section>
+        {% endif %}
+    </div>
+
+    <script>
+        document.addEventListener('DOMContentLoaded', function() {
+            var calendarEl = document.getElementById('calendar');
+            if(calendarEl) {
+                var calendar = new FullCalendar.Calendar(calendarEl, {
+                    initialView: 'dayGridMonth',
+                    locale: 'es',
+                    dateClick: function(info) {
+                        var title = prompt('Nombre de la tarea para el ' + info.dateStr + ':');
+                        if (title) {
+                            fetch('/add_task', {
+                                method: 'POST',
+                                headers: {'Content-Type': 'application/json'},
+                                body: JSON.stringify({ title: title, start: info.dateStr })
+                            }).then(response => {
+                                if(response.ok) {
+                                    calendar.addEvent({ title: title, start: info.dateStr });
+                                    alert('Tarea guardada y programada.');
+                                }
+                            });
+                        }
+                    }
+                });
+                calendar.render();
+            }
+        });
+    </script>
+>>>>>>> b9ca4a6d531ec479d8a056fab5415979661c5d53
 </body>
 </html>
