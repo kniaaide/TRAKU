@@ -3,14 +3,27 @@ let currentUser = null;
 let evalState = { absences: 'Si', motivation: 'Poco', performance: 'Regular' };
 let selectedIcon = '📋';
 let calYear = new Date().getFullYear();
-let calMonth = new Date().getMonth(); // 0-indexed
+let calMonth = new Date().getMonth();
 let allReminders = [];
+let selectedLoginRole = null;
+
+/* ===== ROLE SELECTION ===== */
+function selectLoginRole(role) {
+  selectedLoginRole = role;
+  document.querySelectorAll('.role-card').forEach(c => c.classList.remove('selected'));
+  document.getElementById('role-' + role).classList.add('selected');
+  document.getElementById('login-role-error').classList.add('hidden');
+}
+
+function getRoleLabel(role) {
+  return { estudiante: 'Estudiante', psicologo: 'Psicólogo / Orientador', admin: 'Administrador' }[role] || role;
+}
 
 /* ===== AUTH TABS ===== */
 function switchTab(tab) {
   document.getElementById('tab-login').classList.add('hidden');
   document.getElementById('tab-register').classList.add('hidden');
-  document.getElementById(`tab-${tab}`).classList.remove('hidden');
+  document.getElementById('tab-' + tab).classList.remove('hidden');
   document.getElementById('tab-btn-login').classList.toggle('active', tab === 'login');
   document.getElementById('tab-btn-register').classList.toggle('active', tab === 'register');
 }
@@ -18,6 +31,10 @@ function switchTab(tab) {
 /* ===== LOGIN ===== */
 async function handleLogin(e) {
   e.preventDefault();
+  if (!selectedLoginRole) {
+    document.getElementById('login-role-error').classList.remove('hidden');
+    return;
+  }
   const email = document.getElementById('email').value.trim();
   const password = document.getElementById('password').value;
   const errEl = document.getElementById('login-error');
@@ -29,26 +46,58 @@ async function handleLogin(e) {
     });
     const data = await res.json();
     if (data.success) {
+      if (data.user.role !== selectedLoginRole) {
+        errEl.textContent = 'Este correo no corresponde a un ' + getRoleLabel(selectedLoginRole) + '. Verifica tu rol.';
+        errEl.classList.remove('hidden');
+        return;
+      }
       currentUser = data.user;
       currentUser.email = email;
       routeByRole(data.user);
     } else {
-      errEl.textContent = data.message || 'Credenciales incorrectas';
+      errEl.textContent = data.message || 'Correo o contraseña incorrectos';
       errEl.classList.remove('hidden');
     }
   } catch { loginAsGuest(); }
 }
 
+/* ===== REGISTER ROLE ===== */
+let selectedRegRole = 'estudiante';
+function selectRegRole(role) {
+  selectedRegRole = role;
+  document.querySelectorAll('[id^="reg-role-"]').forEach(c => c.classList.remove('selected'));
+  document.getElementById('reg-role-' + role).classList.add('selected');
+  document.getElementById('reg-role').value = role;
+
+  const studentFields = document.getElementById('reg-student-fields');
+  const staffFields   = document.getElementById('reg-staff-fields');
+  const careerInput   = document.getElementById('reg-career');
+
+  if (role === 'estudiante') {
+    if (studentFields) studentFields.style.display = '';
+    if (staffFields)   staffFields.style.display   = 'none';
+    if (careerInput)   careerInput.required = true;
+  } else {
+    if (studentFields) studentFields.style.display = 'none';
+    if (staffFields)   staffFields.style.display   = '';
+    if (careerInput)   careerInput.required = false;
+  }
+}
+
 /* ===== REGISTER ===== */
 async function handleRegister(e) {
   e.preventDefault();
+  const role = document.getElementById('reg-role').value;
+  const isStaff = role === 'psicologo' || role === 'admin';
+  const careerEl = document.getElementById('reg-career');
+  const areaEl   = document.getElementById('reg-area');
   const body = {
-    name: document.getElementById('reg-name').value,
-    email: document.getElementById('reg-email').value,
+    name:     document.getElementById('reg-name').value,
+    email:    document.getElementById('reg-email').value,
     password: document.getElementById('reg-password').value,
-    career: document.getElementById('reg-career').value,
-    semester: document.getElementById('reg-semester').value,
-    role: document.getElementById('reg-role').value
+    career:   isStaff ? (areaEl ? areaEl.value || 'Sin área' : 'Sin área') : (careerEl ? careerEl.value : ''),
+    semester: isStaff ? 0 : parseInt(document.getElementById('reg-semester').value),
+    role:     role
   };
   const errEl = document.getElementById('register-error');
   const sucEl = document.getElementById('register-success');

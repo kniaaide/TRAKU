@@ -352,3 +352,53 @@ body { font-family: var(--font); background: var(--gray-50); color: var(--gray-8
 
 @media(max-width:900px) { .dashboard-grid,.calendar-layout,.admin-stats-grid{grid-template-columns:1fr} .sidebar{width:190px} .main-content{margin-left:190px;padding:16px} }
 @media(max-width:640px) { .sidebar{display:none} .main-content{margin-left:0} }
+
+/* ── ROLE SELECTOR CARDS ── */
+.role-prompt {
+  color: rgba(255,255,255,0.85);
+  font-size: 13px;
+  font-weight: 600;
+  text-align: center;
+  margin-bottom: 10px;
+  letter-spacing: 0.5px;
+  text-transform: uppercase;
+}
+.role-cards {
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  gap: 10px;
+  margin-bottom: 18px;
+}
+.role-card {
+  background: rgba(255,255,255,0.1);
+  border: 2px solid rgba(255,255,255,0.2);
+  border-radius: 14px;
+  padding: 14px 8px;
+  cursor: pointer;
+  transition: all 0.2s;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 6px;
+}
+.role-card:hover {
+  background: rgba(255,255,255,0.18);
+  border-color: rgba(255,255,255,0.5);
+  transform: translateY(-2px);
+}
+.role-card.selected {
+  background: white;
+  border-color: white;
+  box-shadow: 0 6px 20px rgba(0,0,0,0.2);
+  transform: translateY(-2px);
+}
+.role-card.selected .role-label { color: var(--blue); }
+.role-emoji { font-size: 28px; }
+.role-label {
+  font-family: var(--font-display);
+  font-size: 11px;
+  font-weight: 800;
+  color: rgba(255,255,255,0.9);
+  text-align: center;
+  line-height: 1.2;
+}

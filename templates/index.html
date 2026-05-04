@@ -26,6 +26,24 @@
 
     <!-- LOGIN -->
     <div id="tab-login">
+      <!-- ROLE SELECTOR -->
+      <p class="role-prompt">¿Quién eres?</p>
+      <div class="role-cards">
+        <button class="role-card" id="role-estudiante" onclick="selectLoginRole('estudiante')" type="button">
+          <span class="role-emoji">🎓</span>
+          <span class="role-label">Estudiante</span>
+        </button>
+        <button class="role-card" id="role-psicologo" onclick="selectLoginRole('psicologo')" type="button">
+          <span class="role-emoji">🧠</span>
+          <span class="role-label">Psicólogo</span>
+        </button>
+        <button class="role-card" id="role-admin" onclick="selectLoginRole('admin')" type="button">
+          <span class="role-emoji">⚙️</span>
+          <span class="role-label">Administrador</span>
+        </button>
+      </div>
+      <div id="login-role-error" class="error-msg hidden" style="margin-bottom:10px">Por favor selecciona tu rol antes de continuar.</div>
+
       <form class="login-form" onsubmit="handleLogin(event)">
         <div class="input-group"><span class="input-icon">✉️</span><input type="email" id="email" placeholder="Correo electrónico" required></div>
         <div class="input-group"><span class="input-icon">🔒</span><input type="password" id="password" placeholder="Contraseña" required></div>
@@ -43,28 +61,47 @@
     <!-- REGISTER -->
     <div id="tab-register" class="hidden">
       <form class="login-form" onsubmit="handleRegister(event)">
+
+        <!-- PASO 1: ELEGIR ROL PRIMERO -->
+        <p class="role-prompt">¿Cuál es tu rol?</p>
+        <div class="role-cards" style="margin-bottom:14px">
+          <button class="role-card selected" id="reg-role-estudiante" onclick="selectRegRole('estudiante')" type="button">
+            <span class="role-emoji">🎓</span><span class="role-label">Estudiante</span>
+          </button>
+          <button class="role-card" id="reg-role-psicologo" onclick="selectRegRole('psicologo')" type="button">
+            <span class="role-emoji">🧠</span><span class="role-label">Psicólogo</span>
+          </button>
+          <button class="role-card" id="reg-role-admin" onclick="selectRegRole('admin')" type="button">
+            <span class="role-emoji">⚙️</span><span class="role-label">Admin</span>
+          </button>
+        </div>
+        <input type="hidden" id="reg-role" value="estudiante">
+
+        <!-- CAMPOS COMUNES (siempre visibles) -->
         <div class="input-group"><span class="input-icon">👤</span><input type="text" id="reg-name" placeholder="Nombre completo" required></div>
         <div class="input-group"><span class="input-icon">✉️</span><input type="email" id="reg-email" placeholder="Correo electrónico" required></div>
         <div class="input-group"><span class="input-icon">🔒</span><input type="password" id="reg-password" placeholder="Contraseña (mín. 4 caracteres)" required></div>
-        <div class="input-group"><span class="input-icon">🎓</span><input type="text" id="reg-career" placeholder="Carrera / Área universitaria" required></div>
-        <div class="input-group">
-          <span class="input-icon">📅</span>
-          <select id="reg-semester">
-            <option value="1">Semestre 1</option><option value="2">Semestre 2</option>
-            <option value="3">Semestre 3</option><option value="4">Semestre 4</option>
-            <option value="5">Semestre 5</option><option value="6" selected>Semestre 6</option>
-            <option value="7">Semestre 7</option><option value="8">Semestre 8</option>
-            <option value="9">Semestre 9</option><option value="10">Semestre 10</option>
-          </select>
+
+        <!-- SOLO ESTUDIANTE: carrera y semestre -->
+        <div id="reg-student-fields">
+          <div class="input-group"><span class="input-icon">🎓</span><input type="text" id="reg-career" placeholder="Carrera universitaria"></div>
+          <div class="input-group">
+            <span class="input-icon">📅</span>
+            <select id="reg-semester">
+              <option value="1">Semestre 1</option><option value="2">Semestre 2</option>
+              <option value="3">Semestre 3</option><option value="4">Semestre 4</option>
+              <option value="5">Semestre 5</option><option value="6" selected>Semestre 6</option>
+              <option value="7">Semestre 7</option><option value="8">Semestre 8</option>
+              <option value="9">Semestre 9</option><option value="10">Semestre 10</option>
+            </select>
+          </div>
         </div>
-        <div class="input-group">
-          <span class="input-icon">🏷️</span>
-          <select id="reg-role">
-            <option value="estudiante">Estudiante</option>
-            <option value="psicologo">Psicólogo / Orientador</option>
-            <option value="admin">Administrador</option>
-          </select>
+
+        <!-- SOLO PSICÓLOGO / ADMIN: área -->
+        <div id="reg-staff-fields" style="display:none">
+          <div class="input-group"><span class="input-icon">🏫</span><input type="text" id="reg-area" placeholder="Área o Departamento (ej. Orientación)"></div>
         </div>
+
         <div id="register-error" class="error-msg hidden"></div>
         <div id="register-success" class="success-msg hidden"></div>
         <button type="submit" class="btn-primary btn-full">Crear Cuenta</button>
