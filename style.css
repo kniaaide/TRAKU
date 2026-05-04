@@ -1,4 +1,4 @@
-/* ===== RESET & BASE ===== */
+
 *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
 
 :root {
@@ -174,7 +174,6 @@ body {
 }
 .hidden { display: none !important; }
 
-/* ===== APP SHELL ===== */
 #screen-dashboard { display: none; }
 #screen-dashboard.active { display: flex; flex-direction: column; }
 
@@ -184,7 +183,6 @@ body {
     min-height: 100vh;
 }
 
-/* ===== SIDEBAR ===== */
 .sidebar {
     width: 240px;
     background: linear-gradient(180deg, var(--blue-dark) 0%, var(--blue-main) 100%);
@@ -248,7 +246,6 @@ body {
 }
 .btn-logout:hover { background: rgba(255,255,255,0.2); color: white; }
 
-/* ===== MAIN CONTENT ===== */
 .main-content {
     flex: 1;
     margin-left: 240px;
@@ -289,7 +286,6 @@ body {
     box-shadow: var(--shadow);
 }
 
-/* ===== DASHBOARD GRID ===== */
 .dashboard-grid {
     display: grid;
     grid-template-columns: repeat(2, 1fr);
@@ -314,7 +310,7 @@ body {
     margin-bottom: 16px;
 }
 
-/* Risk Card */
+
 .risk-badge {
     display: inline-flex;
     align-items: center;
@@ -344,7 +340,7 @@ body {
 .risk-badge.high { background: #fef2f2; border-color: #f87171; color: #b91c1c; }
 .risk-badge.high .risk-dot { background: #ef4444; box-shadow: 0 0 0 3px rgba(239,68,68,0.3); }
 
-/* Progress */
+
 .progress-visual { display: flex; align-items: flex-end; gap: 16px; margin-bottom: 16px; }
 .bar-chart { display: flex; align-items: flex-end; gap: 4px; height: 60px; }
 .bar {
@@ -399,7 +395,7 @@ body {
 .reminder-task { font-size: 14px; font-weight: 600; color: var(--gray-800); }
 .reminder-date { font-size: 12px; color: var(--gray-400); }
 
-/* Actions */
+
 .action-grid {
     display: grid;
     grid-template-columns: 1fr 1fr;
@@ -427,7 +423,7 @@ body {
 .action-btn.red { background: linear-gradient(135deg, #dc2626, #ef4444); }
 .action-btn.blue { background: linear-gradient(135deg, #2250d9, #3b82f6); }
 
-/* ===== CHAT ===== */
+
 .chat-container {
     background: white;
     border-radius: var(--radius);
@@ -552,7 +548,6 @@ body {
 }
 .btn-send:hover { transform: scale(1.05); box-shadow: var(--shadow-lg); }
 
-/* ===== EVALUATION ===== */
 .eval-card {
     background: white;
     border-radius: var(--radius);
@@ -594,7 +589,6 @@ body {
     box-shadow: 0 4px 12px rgba(34,80,217,0.3);
 }
 
-/* ===== RECOMMENDATIONS ===== */
 .rec-container { max-width: 600px; }
 .rec-list { display: flex; flex-direction: column; gap: 14px; margin-bottom: 28px; }
 
@@ -651,7 +645,7 @@ body {
     line-height: 1.6;
 }
 
-/* ===== RESPONSIVE ===== */
+
 @media (max-width: 900px) {
     .sidebar { width: 200px; }
     .main-content { margin-left: 200px; padding: 20px; }
