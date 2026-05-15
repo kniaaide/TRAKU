@@ -1,112 +1,37 @@
-<<<<<<< HEAD
 {
-  "karime@universidad.edu": {
-    "password": "1234",
-    "name": "Karime",
-    "career": "Ing. en Gestion Empresarial",
-    "semester": 6,
-    "risk_level": "Medio",
-    "progress": 75,
-    "reminders": [
-      {
-        "icon": "📋",
-        "task": "Entregar reporte de quimica",
-        "date": "Manana"
-      },
-      {
-        "icon": "📐",
-        "task": "Examen de matematicas",
-        "date": "25 de abril"
-      }
-    ],
-    "recommendations": [
-      {
-        "icon": "📚",
-        "text": "Estudia al menos 1 hora al dia esta semana.",
-        "color": "#2563eb"
-      },
-      {
-        "icon": "🧘",
-        "text": "Practica ejercicios de respiracion y relajacion.",
-        "color": "#16a34a"
-      },
-      {
-        "icon": "🗓️",
-        "text": "Agenda una tutoria con un asesor.",
-        "color": "#d97706"
-      }
-    ]
-  },
-  "vallesteroskeniaaide@gmail.com": {
-    "password": "7895",
-    "name": "valllesteros",
-    "career": "informatica",
-    "semester": 2,
-    "risk_level": "Bajo",
-    "progress": 0,
-    "reminders": [],
-    "recommendations": [
-      {
-        "icon": "🎉",
-        "text": "Bienvenido/a a TraKU! Completa tu evaluacion inicial.",
-        "color": "#2563eb"
-      },
-      {
-        "icon": "📚",
-        "text": "Explora los recursos academicos disponibles.",
-        "color": "#16a34a"
-      },
-      {
-        "icon": "💬",
-        "text": "Habla con tu asistente IA cuando lo necesites.",
-        "color": "#d97706"
-      }
-    ]
-  },
-  "jualkle@gmail.com": {
-    "password": "4561",
-    "name": "juan",
-    "career": "industrial",
-    "semester": 3,
-    "risk_level": "Bajo",
-    "progress": 0,
-    "reminders": [],
-    "recommendations": [
-      {
-        "icon": "🎉",
-        "text": "Bienvenido/a a TraKU! Completa tu evaluacion inicial.",
-        "color": "#2563eb"
-      },
-      {
-        "icon": "📚",
-        "text": "Explora los recursos academicos disponibles.",
-        "color": "#16a34a"
-      },
-      {
-        "icon": "💬",
-        "text": "Habla con tu asistente IA cuando lo necesites.",
-        "color": "#d97706"
-      }
-    ]
+  "users": {
+    "admin@traku.edu": {
+      "password": "admin123",
+      "role": "admin",
+      "name": "Administrador TraKU",
+      "career": "Administración del Sistema",
+      "semester": 0
+    },
+    "psicologa@traku.edu": {
+      "password": "psico123",
+      "role": "psicologo",
+      "name": "Dra. Martínez",
+      "career": "Orientación Universitaria",
+      "semester": 0
+    },
+    "karime@universidad.edu": {
+      "password": "1234",
+      "role": "estudiante",
+      "name": "Karime",
+      "career": "Ing. en Gestión Empresarial",
+      "semester": 6,
+      "risk_level": "Medio",
+      "progress": 75,
+      "reminders": [
+        {"id": "r1", "icon": "📋", "task": "Entregar reporte de química", "date": "2026-05-20"},
+        {"id": "r2", "icon": "📐", "task": "Examen de matemáticas", "date": "2026-05-25"}
+      ],
+      "recommendations": [
+        {"icon": "📚", "text": "Estudia al menos 1 hora al día esta semana.", "color": "#2563eb"},
+        {"icon": "🧘", "text": "Practica ejercicios de respiración y relajación.", "color": "#16a34a"},
+        {"icon": "🗓️", "text": "Agenda una tutoría con un asesor.", "color": "#d97706"}
+      ],
+      "evaluations": []
+    }
   }
 }
-=======
-[
-  {
-    "username": "admin_tec",
-    "password": "123",
-    "role": "admin"
-  },
-  {
-    "username": "orientador_psic",
-    "password": "123",
-    "role": "orientador"
-  },
-  {
-    "username": "kenia_aide",
-    "password": "123",
-    "role": "estudiante",
-    "tasks": []
-  }
-]
->>>>>>> b9ca4a6d531ec479d8a056fab5415979661c5d53
