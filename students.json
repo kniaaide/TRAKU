@@ -23,15 +23,104 @@
       "risk_level": "Medio",
       "progress": 75,
       "reminders": [
-        {"id": "r1", "icon": "📋", "task": "Entregar reporte de química", "date": "2026-05-20"},
-        {"id": "r2", "icon": "📐", "task": "Examen de matemáticas", "date": "2026-05-25"}
+        {
+          "id": "r1",
+          "icon": "📋",
+          "task": "Entregar reporte de química",
+          "date": "2026-05-20"
+        },
+        {
+          "id": "r2",
+          "icon": "📐",
+          "task": "Examen de matemáticas",
+          "date": "2026-05-25"
+        }
       ],
       "recommendations": [
-        {"icon": "📚", "text": "Estudia al menos 1 hora al día esta semana.", "color": "#2563eb"},
-        {"icon": "🧘", "text": "Practica ejercicios de respiración y relajación.", "color": "#16a34a"},
-        {"icon": "🗓️", "text": "Agenda una tutoría con un asesor.", "color": "#d97706"}
+        {
+          "icon": "📚",
+          "text": "Estudia al menos 1 hora al día esta semana.",
+          "color": "#2563eb"
+        },
+        {
+          "icon": "🧘",
+          "text": "Practica ejercicios de respiración y relajación.",
+          "color": "#16a34a"
+        },
+        {
+          "icon": "🗓️",
+          "text": "Agenda una tutoría con un asesor.",
+          "color": "#d97706"
+        }
       ],
       "evaluations": []
+    },
+    "hermin@gmil.com": {
+      "password": "12345",
+      "role": "estudiante",
+      "name": "herminia",
+      "career": "tec monclova",
+      "semester": 3,
+      "risk_level": "Bajo",
+      "progress": 0,
+      "reminders": [],
+      "recommendations": [
+        {
+          "icon": "🎉",
+          "text": "¡Bienvenido/a a TraKU! Completa tu evaluación inicial.",
+          "color": "#2563eb"
+        },
+        {
+          "icon": "📚",
+          "text": "Explora los recursos académicos disponibles.",
+          "color": "#16a34a"
+        }
+      ],
+      "evaluations": []
+    },
+    "herminpol@gmil.com": {
+      "password": "12345",
+      "role": "estudiante",
+      "name": "herminia",
+      "career": "o",
+      "semester": 3,
+      "risk_level": "Bajo",
+      "progress": 0,
+      "reminders": [
+        {
+          "id": "r1778875255.012526",
+          "icon": "📝",
+          "task": "matematicas",
+          "date": "2026-06-14"
+        }
+      ],
+      "recommendations": [
+        {
+          "icon": "🎉",
+          "text": "¡Bienvenido/a a TraKU! Completa tu evaluación inicial.",
+          "color": "#2563eb"
+        },
+        {
+          "icon": "📚",
+          "text": "Explora los recursos académicos disponibles.",
+          "color": "#16a34a"
+        }
+      ],
+      "evaluations": []
+    },
+    "nina@gmail.com": {
+      "password": "789456",
+      "role": "psicologo",
+      "name": "nina",
+      "career": "pisicologia",
+      "semester": 0
+    },
+    "onichan@gimail": {
+      "password": "4561",
+      "role": "admin",
+      "name": "koko",
+      "career": "admi",
+      "semester": 0
     }
   }
 }
