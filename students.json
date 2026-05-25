@@ -121,6 +121,13 @@
       "name": "koko",
       "career": "admi",
       "semester": 0
+    },
+    "pip@gmali.com": {
+      "password": "963852",
+      "role": "psicologo",
+      "name": "pip",
+      "career": "pisicologia",
+      "semester": 0
     }
   }
 }

@@ -15,7 +15,7 @@
   <div class="login-bg"><div class="login-blob b1"></div><div class="login-blob b2"></div></div>
   <div class="login-card">
     <div class="brand">
-      <div class="brand-icon">🎓</div>
+      <div class="brand-icon"><img src="/static/img/logo.jpeg" alt="TraKU"></div>
       <h1 class="brand-name">TraKU</h1>
       <p class="brand-sub">Asistente Inteligente Universitario</p>
     </div>
@@ -114,7 +114,7 @@
 <div id="screen-estudiante" class="screen">
   <div class="app-shell">
     <aside class="sidebar" id="sidebar-estudiante">
-      <div class="sidebar-brand"><img src="traku.jpeg" alt="Tarku"> TraKU</div>
+      <div class="sidebar-brand">🎓 TraKU</div>
       <div class="sidebar-user-role">👩‍🎓 Estudiante</div>
       <nav class="sidebar-nav">
         <button class="nav-item active" onclick="showSection('s-dashboard')">🏠 Dashboard</button>
@@ -221,10 +221,14 @@
             <div class="msg-bubble">¡Hola! Soy TraKU, tu asistente universitario. ¿Cómo te sientes hoy?</div></div>
           </div>
           <div class="quick-chips">
-            <button class="chip" onclick="sendQuick('Me siento estresado con la escuela')">😰 Estresado/a</button>
-            <button class="chip" onclick="sendQuick('Necesito ayuda con mis tareas')">📚 Tareas</button>
-            <button class="chip" onclick="sendQuick('Tengo un examen proximo')">📝 Examen</button>
-            <button class="chip" onclick="sendQuick('Me siento desmotivado')">😔 Desmotivado/a</button>
+            <button class="chip chip-main" onclick="sendQuick('cuestionario')">📋 Cuestionario de bienestar</button>
+            <button class="chip" onclick="sendQuick('Me siento estresado con la escuela')">😰 Estrés</button>
+            <button class="chip" onclick="sendQuick('me siento triste')">💙 Me siento triste</button>
+            <button class="chip" onclick="sendQuick('necesito ayuda con tareas')">📚 Tareas</button>
+            <button class="chip" onclick="sendQuick('siento ansiedad')">😰 Ansiedad</button>
+            <button class="chip" onclick="sendQuick('me siento solo')">🤝 Soledad</button>
+            <button class="chip" onclick="sendQuick('necesito un tutor')">👨‍🏫 Tutor</button>
+            <button class="chip" onclick="sendQuick('no puedo dormir')">😴 No duermo</button>
           </div>
           <div class="chat-input-bar">
             <input type="text" id="chat-input" placeholder="Escribe un mensaje..." onkeydown="if(event.key==='Enter') sendMessage()">

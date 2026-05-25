@@ -155,6 +155,7 @@ function routeByRole(user) {
 function logout() {
   currentUser = null;
   allReminders = [];
+  chatState = {};
   document.querySelectorAll('.screen').forEach(s => s.classList.remove('active'));
   document.getElementById('screen-login').classList.add('active');
   document.getElementById('email').value = '';
@@ -405,6 +406,9 @@ function formatDate(dateStr) {
   return `${parseInt(d)} ${months[parseInt(m)-1]} ${y}`;
 }
 
+/* ===== CHAT STATE ===== */
+let chatState = {};
+
 /* ===== CHAT ===== */
 async function sendMessage() {
   const input = document.getElementById('chat-input');
@@ -416,13 +420,60 @@ async function sendMessage() {
   try {
     const res = await fetch('/api/chat', {
       method: 'POST', headers: { 'Content-Type': 'application/json' },
-      body: JSON.stringify({ message: msg })
+      body: JSON.stringify({
+        message: msg,
+        email: currentUser?.email || '',
+        chat_state: chatState
+      })
     });
     const data = await res.json();
-    removeTyping(); addMessage(data.response, 'bot');
-  } catch { removeTyping(); addMessage('Lo siento, ocurrió un error. Intenta de nuevo.', 'bot'); }
+    removeTyping();
+
+    // Update chat state (for questionnaire flow)
+    if (data.chat_state) chatState = data.chat_state;
+
+    // Handle actions
+    if (data.action === 'start_questionnaire') {
+      chatState = { mode: 'questionnaire', current_question: 1, answers: {} };
+      // Show first question after welcome
+      addMessage(formatBotText(data.response), 'bot');
+      setTimeout(() => {
+        const q1 = '📚 Área Académica\n\n*Pregunta 1 de 30*\n**¿Te cuesta concentrarte en clases o tareas?**';
+        addMessage(formatBotText(q1), 'bot');
+        chatState.current_question = 1;
+      }, 800);
+      return;
+    }
+
+    if (data.action === 'questionnaire_done') {
+      chatState = {};
+      addMessage(formatBotText(data.response), 'bot');
+      // Update risk badge if available
+      if (currentUser) loadStudentReminders();
+      return;
+    }
+
+    addMessage(formatBotText(data.response), 'bot');
+
+  } catch {
+    removeTyping();
+    addMessage('Lo siento, ocurrió un error. Intenta de nuevo.', 'bot');
+  }
 }
+
 function sendQuick(msg) { document.getElementById('chat-input').value = msg; sendMessage(); }
+
+// Converts **bold**, *italic*, and newlines to HTML
+function formatBotText(text) {
+  return text
+    .replace(/&/g, '&amp;').replace(/</g, '&lt;').replace(/>/g, '&gt;')
+    .replace(/\*\*(.*?)\*\*/g, '<strong>$1</strong>')
+    .replace(/\*(.*?)\*/g, '<em>$1</em>')
+    .replace(/---/g, '<hr style="border:none;border-top:1px solid rgba(59,130,246,0.2);margin:8px 0">')
+    .replace(/• /g, '&bull; ')
+    .replace(/\n/g, '<br>');
+}
+
 function addMessage(text, type) {
   const c = document.getElementById('chat-messages');
   const d = document.createElement('div');
@@ -432,6 +483,7 @@ function addMessage(text, type) {
     : `<div class="msg-bubble">${text}</div><div class="msg-avatar" style="background:linear-gradient(135deg,#7c3aed,#ec4899)">👤</div>`;
   c.appendChild(d); c.scrollTop = c.scrollHeight;
 }
+
 function showTyping() {
   const c = document.getElementById('chat-messages');
   const d = document.createElement('div');
