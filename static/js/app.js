@@ -670,6 +670,7 @@ async function adminRegister(e) {
   const errEl = document.getElementById('admin-reg-error');
   const sucEl = document.getElementById('admin-reg-success');
   errEl.classList.add('hidden'); sucEl.classList.add('hidden');
+  nm
   try {
     const res = await fetch('/api/register', {
       method: 'POST', headers: { 'Content-Type': 'application/json' },
