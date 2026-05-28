@@ -6,9 +6,8 @@
   <title>TraKU – Asistente Inteligente Universitario</title>
   <link rel="preconnect" href="https://fonts.googleapis.com">
   <link href="https://fonts.googleapis.com/css2?family=Nunito:wght@400;600;700;800;900&family=Poppins:wght@300;400;500;600;700&display=swap" rel="stylesheet">
-  <!-- Tabler Icons (íconos outline) -->
   <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@tabler/icons-webfont@latest/tabler-icons.min.css">
-<link rel="stylesheet" href="{{ url_for('static', filename='style.css') }}">
+  <link rel="stylesheet" href="{{ url_for('static', filename='style.css') }}">
 </head>
 <body>
 
@@ -16,21 +15,21 @@
 
   <!-- BRAND -->
   <div class="brand">
-    <div class="brand-icon">🎓</div>
+    <div class="brand-icon">&#127891;</div>
     <h1 class="brand-name">TraKU</h1>
     <p class="brand-sub">Asistente Inteligente Universitario</p>
   </div>
 
   <!-- TABS -->
   <div class="auth-tabs">
-    <button class="auth-tab active" id="tab-btn-login" onclick="switchTab('login')">Iniciar Sesión</button>
+    <button class="auth-tab active" id="tab-btn-login" onclick="switchTab('login')">Iniciar Sesi&#243;n</button>
     <button class="auth-tab" id="tab-btn-register" onclick="switchTab('register')">Crear Cuenta</button>
   </div>
 
-  <!-- ===== LOGIN ===== -->
+  <!-- LOGIN -->
   <div id="tab-login" class="tab-content active">
 
-    <p class="role-prompt">¿Quién eres?</p>
+    <p class="role-prompt">&#191;Qui&#233;n eres?</p>
 
     <div class="role-cards">
       <button class="role-card selected" id="role-est" onclick="selectLoginRole('est')" type="button">
@@ -40,13 +39,13 @@
       </button>
       <button class="role-card" id="role-psi" onclick="selectLoginRole('psi')" type="button">
         <div class="role-icon psi"><i class="ti ti-brain"></i></div>
-        <span class="role-label">Psicólogo</span>
+        <span class="role-label">Psic&#243;logo</span>
         <span class="role-desc">Orientador</span>
       </button>
       <button class="role-card" id="role-adm" onclick="selectLoginRole('adm')" type="button">
         <div class="role-icon adm"><i class="ti ti-settings"></i></div>
         <span class="role-label">Admin</span>
-        <span class="role-desc">Institución</span>
+        <span class="role-desc">Instituci&#243;n</span>
       </button>
     </div>
 
@@ -54,30 +53,30 @@
 
     <div class="input-group">
       <i class="ti ti-mail input-icon"></i>
-      <input type="email" id="email" placeholder="Correo electrónico" required>
+      <input type="email" id="email" placeholder="Correo electr&#243;nico" required>
     </div>
     <div class="input-group">
       <i class="ti ti-lock input-icon"></i>
-      <input type="password" id="password" placeholder="Contraseña" required>
+      <input type="password" id="password" placeholder="Contrase&#241;a" required>
     </div>
 
     <div id="login-error" class="error-msg hidden">Credenciales incorrectas. Intenta de nuevo.</div>
 
-    <button class="btn-primary" onclick="handleLogin(event)">Iniciar Sesión</button>
+    <button class="btn-primary" onclick="handleLogin(event)">Iniciar Sesi&#243;n</button>
     <button class="btn-ghost" onclick="loginAsGuest()">Entrar como invitado (estudiante)</button>
 
     <div class="demo-hints">
       <p><span class="hint-dot adm"></span>Admin: admin@traku.edu / admin123</p>
-      <p><span class="hint-dot psi"></span>Psicólogo: psicologa@traku.edu / psico123</p>
+      <p><span class="hint-dot psi"></span>Psic&#243;logo: psicologa@traku.edu / psico123</p>
       <p><span class="hint-dot est"></span>Estudiante: karime@universidad.edu / 1234</p>
     </div>
 
   </div>
 
-  <!-- ===== REGISTER ===== -->
+  <!-- REGISTER -->
   <div id="tab-register" class="tab-content">
 
-    <p class="role-prompt">¿Cuál es tu rol?</p>
+    <p class="role-prompt">&#191;Cu&#225;l es tu rol?</p>
 
     <div class="role-cards">
       <button class="role-card selected" id="reg-role-est" onclick="selectRegRole('est')" type="button">
@@ -87,13 +86,13 @@
       </button>
       <button class="role-card" id="reg-role-psi" onclick="selectRegRole('psi')" type="button">
         <div class="role-icon psi"><i class="ti ti-brain"></i></div>
-        <span class="role-label">Psicólogo</span>
+        <span class="role-label">Psic&#243;logo</span>
         <span class="role-desc">Orientador</span>
       </button>
       <button class="role-card" id="reg-role-adm" onclick="selectRegRole('adm')" type="button">
         <div class="role-icon adm"><i class="ti ti-settings"></i></div>
         <span class="role-label">Admin</span>
-        <span class="role-desc">Institución</span>
+        <span class="role-desc">Instituci&#243;n</span>
       </button>
     </div>
 
@@ -106,14 +105,13 @@
     </div>
     <div class="input-group">
       <i class="ti ti-mail input-icon"></i>
-      <input type="email" id="reg-email" placeholder="Correo electrónico" required>
+      <input type="email" id="reg-email" placeholder="Correo electr&#243;nico" required>
     </div>
     <div class="input-group">
       <i class="ti ti-lock input-icon"></i>
-      <input type="password" id="reg-password" placeholder="Contraseña (mín. 4 caracteres)" required>
+      <input type="password" id="reg-password" placeholder="Contrase&#241;a (m&#237;n. 4 caracteres)" required>
     </div>
 
-    <!-- Campos exclusivos de Estudiante -->
     <div id="reg-student-fields">
       <div class="input-group">
         <i class="ti ti-books input-icon"></i>
@@ -136,11 +134,10 @@
       </div>
     </div>
 
-    <!-- Campos para Psicólogo / Admin -->
     <div id="reg-staff-fields" style="display:none">
       <div class="input-group">
         <i class="ti ti-building input-icon"></i>
-        <input type="text" id="reg-area" placeholder="Área o Departamento (ej. Orientación)">
+        <input type="text" id="reg-area" placeholder="&#193;rea o Departamento (ej. Orientaci&#243;n)">
       </div>
     </div>
 
@@ -151,10 +148,9 @@
 
   </div>
 
-</div><!-- /.login-card -->
+</div>
 
 <script>
-  /* ===== SWITCH TABS ===== */
   function switchTab(tab) {
     document.getElementById('tab-login').classList.toggle('active', tab === 'login');
     document.getElementById('tab-register').classList.toggle('active', tab === 'register');
@@ -162,7 +158,6 @@
     document.getElementById('tab-btn-register').classList.toggle('active', tab === 'register');
   }
 
-  /* ===== ROL LOGIN ===== */
   let loginRole = 'est';
   function selectLoginRole(role) {
     loginRole = role;
@@ -172,7 +167,6 @@
     document.getElementById('login-error').classList.add('hidden');
   }
 
-  /* ===== ROL REGISTRO ===== */
   function selectRegRole(role) {
     ['est', 'psi', 'adm'].forEach(r => {
       document.getElementById('reg-role-' + r).classList.toggle('selected', r === role);
@@ -182,19 +176,15 @@
     document.getElementById('reg-staff-fields').style.display  = role !== 'est' ? 'block' : 'none';
   }
 
-  /* ===== LOGIN HANDLER ===== */
   function handleLogin(e) {
     if (e) e.preventDefault();
-    // Conectar con app.js real
     if (typeof window.doLogin === 'function') window.doLogin(loginRole);
   }
 
-  /* ===== INVITADO ===== */
   function loginAsGuest() {
     if (typeof window.loginAsGuest === 'function') window.loginAsGuest();
   }
 
-  /* ===== REGISTER HANDLER ===== */
   function handleRegister(e) {
     if (e) e.preventDefault();
     if (typeof window.doRegister === 'function') window.doRegister();
