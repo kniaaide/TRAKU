@@ -1,0 +1,6 @@
+﻿students.json
+traku.db
+__pycache__/
+*.pyc
+.venv/
+venv/

@@ -1,0 +1,590 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>TraKU – Asistente Inteligente Universitario</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link href="https://fonts.googleapis.com/css2?family=Nunito:wght@400;600;700;800;900&family=Poppins:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+  <!-- Tabler Icons: faltaba este link, por eso los iconos "ti ti-*" no se veían -->
+  <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@tabler/icons-webfont@latest/dist/tabler-icons.min.css">
+  <link rel="stylesheet" href="/style.css">
+</head>
+<body>
+
+<!-- ===================== SCREEN: LOGIN ===================== -->
+<div id="screen-login" class="screen active">
+  <div class="login-bg">
+    <div class="login-blob b1"></div>
+    <div class="login-blob b2"></div>
+  </div>
+
+  <div class="login-card">
+
+    <div class="brand">
+      <span class="brand-icon">🎓</span>
+      <h1 class="brand-name">TraKU</h1>
+      <p class="brand-sub">Asistente Inteligente Universitario</p>
+    </div>
+
+    <div class="auth-tabs">
+      <button class="auth-tab active" id="tab-btn-login" onclick="switchTab('login')">Iniciar Sesión</button>
+      <button class="auth-tab" id="tab-btn-register" onclick="switchTab('register')">Crear Cuenta</button>
+    </div>
+
+    <!-- LOGIN -->
+    <div id="tab-login">
+      <p class="role-prompt">¿Quién eres?</p>
+      <div class="role-cards">
+        <button class="role-card" id="role-estudiante" onclick="selectLoginRole('estudiante')" type="button">
+          <div class="role-icon est"><i class="ti ti-school"></i></div>
+          <span class="role-label">Estudiante</span>
+          <span class="role-desc">Alumno activo</span>
+        </button>
+        <button class="role-card" id="role-psicologo" onclick="selectLoginRole('psicologo')" type="button">
+          <div class="role-icon psi"><i class="ti ti-brain"></i></div>
+          <span class="role-label">Psicólogo</span>
+          <span class="role-desc">Orientador</span>
+        </button>
+        <button class="role-card" id="role-admin" onclick="selectLoginRole('admin')" type="button">
+          <div class="role-icon adm"><i class="ti ti-settings"></i></div>
+          <span class="role-label">Admin</span>
+          <span class="role-desc">Institución</span>
+        </button>
+      </div>
+
+      <div id="login-role-error" class="error-msg hidden">Por favor selecciona tu rol antes de continuar.</div>
+      <div class="role-divider"></div>
+
+      <div class="input-group">
+        <i class="ti ti-mail input-icon"></i>
+        <input type="email" id="email" placeholder="Correo electrónico" required>
+      </div>
+      <div class="input-group">
+        <i class="ti ti-lock input-icon"></i>
+        <input type="password" id="password" placeholder="Contraseña" required
+          onkeydown="if(event.key==='Enter') handleLogin(event)">
+      </div>
+
+      <div id="login-error" class="error-msg hidden"></div>
+
+      <button class="btn-primary btn-full" onclick="handleLogin(event)" style="margin-top:14px">Iniciar Sesión</button>
+      <button class="btn-ghost" onclick="loginAsGuest()">Entrar como invitado (estudiante)</button>
+
+      <div class="demo-hints">
+        <p><span class="hint-dot adm"></span>Admin: admin@traku.edu / admin123</p>
+        <p><span class="hint-dot psi"></span>Psicólogo: psicologa@traku.edu / psico123</p>
+        <p><span class="hint-dot est"></span>Estudiante: karime@universidad.edu / 1234</p>
+      </div>
+    </div><!-- /tab-login -->
+
+    <!-- REGISTER -->
+    <div id="tab-register" class="hidden">
+      <p class="role-prompt">¿Cuál es tu rol?</p>
+      <div class="role-cards">
+        <button class="role-card selected" id="reg-role-estudiante" onclick="selectRegRole('estudiante')" type="button">
+          <div class="role-icon est"><i class="ti ti-school"></i></div>
+          <span class="role-label">Estudiante</span>
+          <span class="role-desc">Alumno activo</span>
+        </button>
+        <button class="role-card" id="reg-role-psicologo" onclick="selectRegRole('psicologo')" type="button">
+          <div class="role-icon psi"><i class="ti ti-brain"></i></div>
+          <span class="role-label">Psicólogo</span>
+          <span class="role-desc">Orientador</span>
+        </button>
+        <button class="role-card" id="reg-role-admin" onclick="selectRegRole('admin')" type="button">
+          <div class="role-icon adm"><i class="ti ti-settings"></i></div>
+          <span class="role-label">Admin</span>
+          <span class="role-desc">Institución</span>
+        </button>
+      </div>
+
+      <input type="hidden" id="reg-role" value="estudiante">
+      <div class="role-divider"></div>
+
+      <div class="input-group">
+        <i class="ti ti-user input-icon"></i>
+        <input type="text" id="reg-name" placeholder="Nombre completo" required>
+      </div>
+      <div class="input-group">
+        <i class="ti ti-mail input-icon"></i>
+        <input type="email" id="reg-email" placeholder="Correo electrónico" required>
+      </div>
+      <div class="input-group">
+        <i class="ti ti-lock input-icon"></i>
+        <input type="password" id="reg-password" placeholder="Contraseña (mín. 4 caracteres)" required>
+      </div>
+
+      <div id="reg-student-fields">
+        <div class="input-group">
+          <i class="ti ti-books input-icon"></i>
+          <input type="text" id="reg-career" placeholder="Carrera universitaria" required>
+        </div>
+        <div class="input-group">
+          <i class="ti ti-calendar input-icon"></i>
+          <select id="reg-semester">
+            <option value="1">Semestre 1</option><option value="2">Semestre 2</option>
+            <option value="3">Semestre 3</option><option value="4">Semestre 4</option>
+            <option value="5">Semestre 5</option><option value="6" selected>Semestre 6</option>
+            <option value="7">Semestre 7</option><option value="8">Semestre 8</option>
+            <option value="9">Semestre 9</option><option value="10">Semestre 10</option>
+          </select>
+        </div>
+      </div>
+
+      <div id="reg-staff-fields" style="display:none">
+        <div class="input-group">
+          <i class="ti ti-building input-icon"></i>
+          <input type="text" id="reg-area" placeholder="Área o Departamento (ej. Orientación)">
+        </div>
+      </div>
+
+      <div id="register-error" class="error-msg hidden"></div>
+      <div id="register-success" class="success-msg hidden"></div>
+
+      <button class="btn-primary btn-full" onclick="handleRegister(event)" style="margin-top:14px">Crear Cuenta</button>
+    </div><!-- /tab-register -->
+
+  </div><!-- /.login-card -->
+</div><!-- /#screen-login -->
+
+
+<!-- ===================== SCREEN: ESTUDIANTE ===================== -->
+<div id="screen-estudiante" class="screen">
+  <div class="app-shell">
+
+    <!-- Sidebar -->
+    <nav class="sidebar">
+      <div class="sidebar-brand">🎓 TraKU</div>
+      <div class="sidebar-user-role">Estudiante</div>
+      <div class="sidebar-nav">
+        <button class="nav-item active" onclick="showSection('s-dashboard')">
+          <i class="ti ti-layout-dashboard"></i> Dashboard
+        </button>
+        <button class="nav-item" onclick="showSection('s-calendar')">
+          <i class="ti ti-calendar"></i> Calendario
+        </button>
+        <button class="nav-item" onclick="showSection('s-chat')">
+          <i class="ti ti-message-circle"></i> Chat TraKU
+        </button>
+        <button class="nav-item" onclick="showSection('s-evaluation')">
+          <i class="ti ti-clipboard-check"></i> Evaluación
+        </button>
+        <button class="nav-item" onclick="showSection('s-recommendations')">
+          <i class="ti ti-bulb"></i> Recomendaciones
+        </button>
+      </div>
+      <button class="btn-logout" onclick="logout()"><i class="ti ti-logout"></i> Cerrar sesión</button>
+    </nav>
+
+    <!-- Main Content -->
+    <main class="main-content">
+
+      <!-- Dashboard -->
+      <section id="section-s-dashboard" class="content-section active">
+        <div class="top-bar">
+          <div>
+            <div class="greeting">¡Hola, <span id="s-name">Estudiante</span>! 👋</div>
+            <div class="sub-greeting" id="s-info">Cargando info...</div>
+          </div>
+          <div class="avatar-circle" id="s-avatar">U</div>
+        </div>
+
+        <div id="alert-banner" class="alert-banner hidden"></div>
+
+        <div class="dashboard-grid">
+          <!-- Nivel de riesgo -->
+          <div class="card">
+            <h3><i class="ti ti-shield-check"></i> Nivel de Riesgo</h3>
+            <div id="s-risk-badge" class="risk-badge low">
+              <div class="risk-dot"></div>
+              <span id="s-risk-text">Bajo</span>
+            </div>
+            <p class="risk-desc">Basado en tu última evaluación.</p>
+          </div>
+
+          <!-- Progreso -->
+          <div class="card">
+            <h3><i class="ti ti-chart-bar"></i> Progreso del Semestre</h3>
+            <div class="progress-visual">
+              <div class="bar-chart">
+                <div class="bar" style="height:30%"></div><div class="bar" style="height:50%"></div>
+                <div class="bar" style="height:40%"></div><div class="bar" style="height:80%"></div>
+                <div class="bar" style="height:60%"></div>
+              </div>
+              <div class="pct-circle"><span id="s-progress-num">0</span>%</div>
+            </div>
+            <div class="progress-bar-wrap">
+              <div class="progress-bar-fill" id="s-progress-bar" style="width:0%"></div>
+            </div>
+          </div>
+
+          <!-- Recordatorios -->
+          <div class="card">
+            <h3><i class="ti ti-bell"></i> Próximos Recordatorios</h3>
+            <ul class="reminder-list" id="s-reminder-list">
+              <li class="reminder-empty">Cargando recordatorios...</li>
+            </ul>
+          </div>
+
+          <!-- Acciones rápidas -->
+          <div class="card">
+            <h3><i class="ti ti-bolt"></i> Acciones Rápidas</h3>
+            <div class="action-grid">
+              <button class="action-btn orange" onclick="showSection('s-calendar')">
+                <span>📅</span> Agregar tarea
+              </button>
+              <button class="action-btn green" onclick="showSection('s-chat')">
+                <span>💬</span> Hablar con TraKU
+              </button>
+              <button class="action-btn red" onclick="showSection('s-evaluation')">
+                <span>📊</span> Evaluación
+              </button>
+              <button class="action-btn blue" onclick="showSection('s-recommendations')">
+                <span>💡</span> Ver consejos
+              </button>
+            </div>
+          </div>
+        </div>
+      </section>
+
+      <!-- Calendario -->
+      <section id="section-s-calendar" class="content-section">
+        <div class="top-bar">
+          <div>
+            <div class="greeting">📅 Calendario de Tareas</div>
+            <div class="sub-greeting">Gestiona tus fechas límite</div>
+          </div>
+        </div>
+
+        <div class="calendar-layout">
+          <div class="card calendar-card">
+            <div class="cal-header">
+              <button class="cal-nav" onclick="changeMonth(-1)">‹</button>
+              <h3 id="cal-title">Mayo 2025</h3>
+              <button class="cal-nav" onclick="changeMonth(1)">›</button>
+            </div>
+            <div class="cal-weekdays">
+              <span>Dom</span><span>Lun</span><span>Mar</span><span>Mié</span>
+              <span>Jue</span><span>Vie</span><span>Sáb</span>
+            </div>
+            <div class="cal-grid" id="cal-grid"></div>
+          </div>
+
+          <div class="calendar-side">
+            <div class="card">
+              <h3><i class="ti ti-plus"></i> Nueva Tarea</h3>
+              <div class="task-form">
+                <input type="text" id="task-name" class="task-input" placeholder="Nombre de la tarea...">
+                <input type="date" id="task-date" class="task-input">
+                <div class="task-icons">
+                  <button class="icon-btn selected" data-icon="📋" onclick="selectIcon(this)">📋</button>
+                  <button class="icon-btn" data-icon="📚" onclick="selectIcon(this)">📚</button>
+                  <button class="icon-btn" data-icon="✏️" onclick="selectIcon(this)">✏️</button>
+                  <button class="icon-btn" data-icon="🧪" onclick="selectIcon(this)">🧪</button>
+                  <button class="icon-btn" data-icon="💻" onclick="selectIcon(this)">💻</button>
+                  <button class="icon-btn" data-icon="🎤" onclick="selectIcon(this)">🎤</button>
+                  <button class="icon-btn" data-icon="📝" onclick="selectIcon(this)">📝</button>
+                  <button class="icon-btn" data-icon="⚠️" onclick="selectIcon(this)">⚠️</button>
+                </div>
+                <button class="btn-primary btn-full" onclick="addReminder()">
+                  <i class="ti ti-plus"></i> Agregar tarea
+                </button>
+              </div>
+            </div>
+
+            <div class="card">
+              <h3><i class="ti ti-clock"></i> Próximas Fechas</h3>
+              <div class="upcoming-list" id="upcoming-list">
+                <p style="color:#94a3b8;font-size:13px;text-align:center;padding:16px">Cargando...</p>
+              </div>
+            </div>
+          </div>
+        </div>
+      </section>
+
+      <!-- Chat -->
+      <section id="section-s-chat" class="content-section">
+        <div class="top-bar">
+          <div>
+            <div class="greeting">💬 Chat con TraKU</div>
+            <div class="sub-greeting">Tu asistente universitario inteligente</div>
+          </div>
+        </div>
+
+        <div class="chat-container">
+          <div class="chat-messages" id="chat-messages">
+            <div class="msg bot-msg">
+              <div class="msg-avatar">🤖</div>
+              <div class="msg-bubble">¡Hola! Soy TraKU, tu asistente universitario. ¿Cómo te sientes hoy?</div>
+            </div>
+          </div>
+          <div class="quick-chips">
+            <button class="chip chip-main" onclick="sendQuick('Quiero hacer el cuestionario completo')">📋 Cuestionario</button>
+            <button class="chip" onclick="sendQuick('¿Cómo manejo el estrés?')">😰 Estrés</button>
+            <button class="chip" onclick="sendQuick('Técnicas de estudio')">📚 Estudio</button>
+            <button class="chip" onclick="sendQuick('Me siento desmotivado')">😔 Motivación</button>
+            <button class="chip" onclick="sendQuick('¿Cuál es mi nivel de riesgo?')">📊 Mi riesgo</button>
+          </div>
+          <div class="chat-input-bar">
+            <input type="text" id="chat-input" placeholder="Escribe tu mensaje..." 
+              onkeydown="if(event.key==='Enter') sendMessage()">
+            <button class="btn-send" onclick="sendMessage()"><i class="ti ti-send"></i></button>
+          </div>
+        </div>
+      </section>
+
+      <!-- Evaluación -->
+      <section id="section-s-evaluation" class="content-section">
+        <div class="top-bar">
+          <div>
+            <div class="greeting">📊 Evaluación de Bienestar</div>
+            <div class="sub-greeting">Responde para obtener recomendaciones personalizadas</div>
+          </div>
+        </div>
+
+        <div class="eval-card">
+          <div class="eval-question">
+            <label>¿Has tenido ausencias frecuentes?</label>
+            <div class="eval-options">
+              <button class="eval-btn selected" onclick="selectOpt('absences','Si',this)">Sí</button>
+              <button class="eval-btn" onclick="selectOpt('absences','No',this)">No</button>
+              <button class="eval-btn" onclick="selectOpt('absences','Algunas',this)">Algunas veces</button>
+            </div>
+          </div>
+          <div class="eval-question">
+            <label>¿Cómo describes tu motivación académica?</label>
+            <div class="eval-options">
+              <button class="eval-btn" onclick="selectOpt('motivation','Mucho',this)">Alta</button>
+              <button class="eval-btn selected" onclick="selectOpt('motivation','Poco',this)">Baja</button>
+              <button class="eval-btn" onclick="selectOpt('motivation','Regular',this)">Regular</button>
+            </div>
+          </div>
+          <div class="eval-question">
+            <label>¿Cómo es tu rendimiento académico?</label>
+            <div class="eval-options">
+              <button class="eval-btn" onclick="selectOpt('performance','Bueno',this)">Bueno</button>
+              <button class="eval-btn selected" onclick="selectOpt('performance','Regular',this)">Regular</button>
+              <button class="eval-btn" onclick="selectOpt('performance','Malo',this)">Malo</button>
+            </div>
+          </div>
+          <button class="btn-primary" onclick="submitEvaluation()" style="color:var(--blue)">
+            <i class="ti ti-chart-pie"></i> Ver mi evaluación
+          </button>
+        </div>
+      </section>
+
+      <!-- Recomendaciones -->
+      <section id="section-s-recommendations" class="content-section">
+        <div class="top-bar">
+          <div>
+            <div class="greeting">💡 Recomendaciones</div>
+            <div class="sub-greeting">Basadas en tu evaluación y perfil</div>
+          </div>
+        </div>
+
+        <div class="rec-container">
+          <div class="rec-illustration">
+            <span class="rec-girl">🎓</span>
+            <p>Aquí encontrarás consejos personalizados para mejorar tu bienestar y rendimiento académico.</p>
+          </div>
+          <div class="rec-list" id="rec-list">
+            <div class="rec-item">
+              <div class="rec-icon" style="background:#2563eb20">🎉</div>
+              <div class="rec-text">¡Bienvenido/a a TraKU! Completa tu evaluación para obtener recomendaciones.</div>
+            </div>
+          </div>
+          <button class="btn-refresh" onclick="showSection('s-evaluation')">
+            <i class="ti ti-refresh"></i> Nueva evaluación
+          </button>
+        </div>
+      </section>
+
+    </main>
+  </div>
+</div><!-- /#screen-estudiante -->
+
+
+<!-- ===================== SCREEN: PSICÓLOGO ===================== -->
+<div id="screen-psicologo" class="screen">
+  <div class="app-shell">
+
+    <nav class="sidebar">
+      <div class="sidebar-brand">🎓 TraKU</div>
+      <div class="sidebar-user-role">Psicólogo / Orientador</div>
+      <div class="sidebar-nav">
+        <button class="nav-item active" onclick="showPsicoSection('p-alerts')">
+          <i class="ti ti-alert-triangle"></i> Alertas
+        </button>
+        <button class="nav-item" onclick="showPsicoSection('p-students')">
+          <i class="ti ti-users"></i> Estudiantes
+        </button>
+        <button class="nav-item" onclick="showPsicoSection('p-reports')">
+          <i class="ti ti-file-analytics"></i> Reportes
+        </button>
+      </div>
+      <button class="btn-logout" onclick="logout()"><i class="ti ti-logout"></i> Cerrar sesión</button>
+    </nav>
+
+    <main class="main-content">
+
+      <!-- Alertas -->
+      <section id="section-p-alerts" class="content-section active">
+        <div class="top-bar">
+          <div>
+            <div class="greeting">🚨 Alertas Activas</div>
+            <div class="sub-greeting">Hola, <span id="p-name">Psicólogo/a</span></div>
+          </div>
+          <button class="btn-refresh" onclick="loadPsicoAlerts()"><i class="ti ti-refresh"></i> Actualizar</button>
+        </div>
+        <div class="alerts-list" id="psico-alerts-list">
+          <div class="alert-empty">Cargando alertas...</div>
+        </div>
+      </section>
+
+      <!-- Estudiantes -->
+      <section id="section-p-students" class="content-section">
+        <div class="top-bar">
+          <div>
+            <div class="greeting">👥 Estudiantes Registrados</div>
+            <div class="sub-greeting">Seguimiento de bienestar académico</div>
+          </div>
+          <button class="btn-refresh" onclick="loadPsicoStudents()"><i class="ti ti-refresh"></i> Actualizar</button>
+        </div>
+        <div class="students-table-wrap">
+          <div id="psico-students-table">Cargando...</div>
+        </div>
+      </section>
+
+      <!-- Reportes -->
+      <section id="section-p-reports" class="content-section">
+        <div class="top-bar">
+          <div>
+            <div class="greeting">📈 Reportes por Riesgo</div>
+            <div class="sub-greeting">Clasificación de estudiantes</div>
+          </div>
+          <button class="btn-refresh" onclick="loadPsicoReports()"><i class="ti ti-refresh"></i> Generar reporte</button>
+        </div>
+        <div class="reports-wrap" id="psico-reports">
+          <p style="color:#94a3b8;padding:24px">Haz clic en "Generar reporte" para ver los datos.</p>
+        </div>
+      </section>
+
+    </main>
+  </div>
+</div><!-- /#screen-psicologo -->
+
+
+<!-- ===================== SCREEN: ADMIN ===================== -->
+<div id="screen-admin" class="screen">
+  <div class="app-shell">
+
+    <nav class="sidebar">
+      <div class="sidebar-brand">🎓 TraKU</div>
+      <div class="sidebar-user-role">Administrador</div>
+      <div class="sidebar-nav">
+        <button class="nav-item active" onclick="showAdminSection('a-overview')">
+          <i class="ti ti-layout-dashboard"></i> Resumen
+        </button>
+        <button class="nav-item" onclick="showAdminSection('a-users')">
+          <i class="ti ti-users"></i> Usuarios
+        </button>
+        <button class="nav-item" onclick="showAdminSection('a-register')">
+          <i class="ti ti-user-plus"></i> Registrar
+        </button>
+      </div>
+      <button class="btn-logout" onclick="logout()"><i class="ti ti-logout"></i> Cerrar sesión</button>
+    </nav>
+
+    <main class="main-content">
+
+      <!-- Overview -->
+      <section id="section-a-overview" class="content-section active">
+        <div class="top-bar">
+          <div>
+            <div class="greeting">📊 Panel Administrativo</div>
+            <div class="sub-greeting">Vista general del sistema TraKU</div>
+          </div>
+          <button class="btn-refresh" onclick="loadAdminData()"><i class="ti ti-refresh"></i> Actualizar</button>
+        </div>
+
+        <div class="admin-stats-grid" id="admin-stats-grid">
+          <div class="stat-card"><div class="stat-icon">⏳</div><div class="stat-num">—</div><div class="stat-label">Cargando...</div></div>
+        </div>
+
+        <div class="card" style="margin-top:18px">
+          <h3><i class="ti ti-chart-bar"></i> Distribución de Riesgo</h3>
+          <div class="risk-chart" id="risk-chart"></div>
+        </div>
+      </section>
+
+      <!-- Usuarios -->
+      <section id="section-a-users" class="content-section">
+        <div class="top-bar">
+          <div>
+            <div class="greeting">👥 Gestión de Usuarios</div>
+            <div class="sub-greeting">Lista de estudiantes registrados</div>
+          </div>
+          <button class="btn-refresh" onclick="loadAdminUsers()"><i class="ti ti-refresh"></i> Actualizar</button>
+        </div>
+        <div class="students-table-wrap">
+          <div id="admin-users-table">Cargando...</div>
+        </div>
+      </section>
+
+      <!-- Registrar usuario -->
+      <section id="section-a-register" class="content-section">
+        <div class="top-bar">
+          <div>
+            <div class="greeting">➕ Registrar Usuario</div>
+            <div class="sub-greeting">Agregar estudiante, psicólogo o admin al sistema</div>
+          </div>
+        </div>
+
+        <div class="card" style="max-width:480px">
+          <div style="display:flex;flex-direction:column;gap:14px">
+            <div class="admin-input-wrap">
+              <label>Nombre completo</label>
+              <input type="text" id="a-name" placeholder="Ej. María González">
+            </div>
+            <div class="admin-input-wrap">
+              <label>Correo electrónico</label>
+              <input type="email" id="a-email" placeholder="correo@universidad.edu">
+            </div>
+            <div class="admin-input-wrap">
+              <label>Contraseña</label>
+              <input type="password" id="a-password" placeholder="Mínimo 4 caracteres">
+            </div>
+            <div class="admin-input-wrap">
+              <label>Carrera / Área</label>
+              <input type="text" id="a-career" placeholder="Ej. Ingeniería en Sistemas">
+            </div>
+            <div class="admin-input-wrap">
+              <label>Semestre (0 si no aplica)</label>
+              <input type="number" id="a-semester" value="1" min="0" max="10">
+            </div>
+            <div class="admin-input-wrap">
+              <label>Rol</label>
+              <select id="a-role">
+                <option value="estudiante">Estudiante</option>
+                <option value="psicologo">Psicólogo</option>
+                <option value="admin">Admin</option>
+              </select>
+            </div>
+            <div id="admin-reg-error" class="error-msg hidden"></div>
+            <div id="admin-reg-success" class="success-msg hidden"></div>
+            <button class="btn-primary" onclick="adminRegister(event)" style="color:var(--blue)">
+              <i class="ti ti-user-plus"></i> Registrar Usuario
+            </button>
+          </div>
+        </div>
+      </section>
+
+    </main>
+  </div>
+</div><!-- /#screen-admin -->
+
+
+<script src="/app.js"></script>
+</body>
+</html>
